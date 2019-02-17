@@ -28,6 +28,7 @@ var app = new Vue({
       { id: 3, name: 'Todo Three', description: 'This is a complete todo', completed: true },
       { id: 4, name: 'Four', description: 'This is another complete todo', completed: true }
     ],
+    task: {}, // empty string for updating an existing task
     message: 'Hello World'
   },
   computed: {
@@ -52,7 +53,20 @@ var app = new Vue({
     editTask: function(event, id){
       let task = this.tasks.find(item => item.id == id);
       if(task) {
-        console.log(task);
+        this.task = { id: id, name: task.name, 
+                     description: task.description, 
+                     completed: task.completed }; // update the current task without showing the original text.
+      }
+    },
+    updateTask: function(event, id){
+      event.stopImmediatePropagation();
+      event.preventDefault(); // stop the page from re-submitting or redirecting
+      let task = this.tasks.find(item => item.id == id);
+      
+      if(task) {
+        task.name = this.task.name;
+        task.description = this.task.description;
+        task.completed = this.task.completed;
       }
     },
     deleteTask(event, id){

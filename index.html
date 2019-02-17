@@ -40,7 +40,40 @@
             </div>
         </div>
         <div class="six wide column">
+          <div id="editor" class="details ui raise segment purple">
+            <div class="ui header grid">
+              <div class="left nine wide column">
+                <i class="icon edit violet"></i>Details
+              </div>
+              <div class="right float five wide column">
 
+              </div>
+            </div>
+            <div class="ui segment">
+              <form class="ui form" v-on:submit="updateTask($event, task.id)">
+
+                <input type="hidden" name="id" v-model="task.id"> 
+                <!-- bind it to the model with v model -->
+
+                <div class="field">
+                  <label for="">Name</label>
+                  <input type="text" name="name" placeholder="Name" required="true" v-model="task.name" />
+                </div>
+                
+                <div class="field">
+                  <label for="">Description</label>
+                  <input type="text" name="description" placeholder="Description" required="true" v-model="task.description" />
+                </div>
+
+                <div class="field inline">
+                  <label for="">Completed</label>
+                  <input type="checkbox" name="completed" v-model="task.completed">
+                </div>
+
+                <button class="ui button green" type="submit" v-on:click="updateTask($event, task.id)">Update</button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
      </div>
