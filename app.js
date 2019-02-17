@@ -29,7 +29,8 @@ var app = new Vue({
       { id: 4, name: 'Four', description: 'This is another complete todo', completed: true }
     ],
     task: {}, // empty string for updating an existing task
-    message: 'Hello World'
+    message: 'Hello World',
+    action: 'create' // for the clear function below
   },
   computed: {
     completedTasks: function() {
@@ -38,9 +39,17 @@ var app = new Vue({
 
     todoTasks: function() {
       return this.tasks.filter( item => item.completed == false );
+    },
+    nextId: function() {
+      return (this.tasks.sort(function(a,b){ return a.id - b.id; })) [this.tasks.length - 1].id + 1;
     }
   },
   methods: {
+    clear: function(){
+      this.task = {}; // clear all fields
+      this.action = 'create'; // create and edit states 
+    },
+
     toggleDone: function(event, id) {
       event.stopImmediatePropagation(); // stops any events from occurring besides the function below.
       let task = this.tasks.find(item => item.id == id);
@@ -50,7 +59,22 @@ var app = new Vue({
         console.log('task toggled');
       }
     },
+    createTask: function(event) {
+      event.preventDefault();
+
+      if(!this.task.completed) {
+        this.task.completed = false;
+      } else {
+        this.task.completed = true;
+      }
+      let taskId = this.nextId;
+      let newTask = Object.assign({}, this.task);
+      this.tasks.push(newTask);
+      this.clear();
+    },
     editTask: function(event, id){
+      this.action = 'edit'; // edit state
+
       let task = this.tasks.find(item => item.id == id);
       if(task) {
         this.task = { id: id, name: task.name, 

@@ -71,8 +71,8 @@
                   <label for="">Completed</label>
                   <input type="checkbox" name="completed" v-model="task.completed">
                 </div>
-
-                <button class="ui button green" type="submit" v-on:click="updateTask($event, task.id)">Update</button>
+                <button class="ui button green" type="submit" v-if="action == 'create'" v-on:click="createTask($event, task.id)">Create</button>
+                <button class="ui button green" type="submit" v-if="action == 'edit'" v-on:click="updateTask($event, task.id)">Update</button>
               </form>
             </div>
           </div>
