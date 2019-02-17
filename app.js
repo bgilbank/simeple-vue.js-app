@@ -13,7 +13,7 @@ var app = new Vue({
                     </div>
                   </div>
                   </div class="right floated three wide column">
-                    <i class="icon pencil blue" alt="Edit" v-on:click="app.editTask($event, task.id)"></i>
+                    <i class="icon edit blue" alt="Edit" v-on:click="app.editTask($event, task.id)"></i>
                     <i class="icon trash red" alt="Delete" v-on:click="app.deleteTask($event, task.id)"></i>  
                   </div>
                 </div> 
